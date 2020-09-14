@@ -1,5 +1,18 @@
 <!DOCTYPE html>
-<html lang="javascript">
+<html>
+    <head>
+        <script src="js/common.js"></script>
+        <script src="js/Recource.js"></script>
+        <script lang="javascript">
+            // page specific javascript ( for example what happens when you click something)
+            function suggestion(){
+                let txtValue = getTextFromTextBox("Sugbox");
+                console.log(txtValue);
+                alert('Thank you do much for you support! It is highly appreciated.')
+            }
+        </script>   
+    </head>
+
     <body style="background-color:rgb(68, 32, 6);">
             <style>
                     a:link, a:visited {
@@ -26,9 +39,6 @@
             
             
             </style>
-            <h1>
-                this is the header
-            </h1>
             <table style="width:100%">
                 <tr>
                     <th style="color:white; font-size:35px;">Official Dog Websites</th>
@@ -73,9 +83,8 @@
                     <label style="color:white; font-size:35px;" for="Sugbox"><strong>Suggestions Box:</strong></label><br>
                     <input type="text" id="Sugbox" name="Sugbox"><br>
                 </from>
-            <h3>
-                <script src="./utils.js"></script>    
-            <input type="button" id="subbtn" value="Submit" onclick="suggestion()"/> 
+            <h3>    
+            <input type="button" id="sugbtn" value="Submit" onclick="suggestion()"/> 
     </body>
 </html> 
 
