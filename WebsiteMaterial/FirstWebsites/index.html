@@ -4,11 +4,7 @@
         <script src="js/common.js"></script>
         <script src="js/Recource.js"></script>
         <script lang="javascript">
-            /* page specific javascript ( for example what happens when you click something)
-            * This function basically creates a new variable and assigns the innerworkings to a text box
-            * aka: Which text box do we want to get the value from? 
-            * In this case, we want to get the value from "Sugbox"
-            */ 
+            // page specific javascript ( for example what happens when you click something)
             function suggestion(){
                 let txtValue = getTextFromTextBox("Sugbox");
                 console.log(txtValue);
@@ -30,6 +26,7 @@
 
                     a:hover, a:active {
                 background-color: saddlebrown;
+                cursor: pointer;
                 }
             
                     table, th, td {
@@ -40,7 +37,10 @@
                     th, td {
                 padding: 15px;
                 }
-            
+                
+                .container input {
+                    color: black;
+                }
             
             </style>
             <table style="width:100%">
@@ -100,15 +100,6 @@
                     <td><a href="https://en.wikipedia.org/wiki/Pug">Pugs Wikipedia</a></td>
                     <td style="color:white;"><p>Lifespan: With this breed, femals tend to live a bit longer than the males at about 13 years, both genders also when full grown, on average weigh about 14 - 18 puonds.</p></td>
                 </tr>
-                <tr>
-                    <td valign="middle">
-                        <strong style="color:white; font-size:20px;">Nova Scotia Duck Tolling Retriever</strong>
-                        <a href="https://www.akc.org/dog-breeds/nova-scotia-duck-tolling-retriever/" target="_" alt="Nova Scotia Duck Tolling Retriever" title="Nova Scotia Duck Tolling Retriever" >
-                            <img width="150px" src="images/Nova-Scotia-Duck-Tolling-Retriever.jpg"/>
-                        </a>
-                        <td><a href="https://en.wikipedia.org/wiki/Pug">Nova Scotia Duck Tolling Retriever Wikipedia</a></td>
-                        <td style="color:white;"><p>Lifespan: coming soon, Weight: coming soon</p></td>    
-                </tr>
             </table>    
             <h3>
                 <from>
@@ -116,6 +107,8 @@
                     <input type="text" id="Sugbox" name="Sugbox"><br>
                 </from>
             <h3>    
-            <input type="button" id="sugbtn" value="Submit" size="100" onclick="suggestion()"/> 
+            <div class="container">
+            <input type="button" placeholder="Type here..." id="sugbtn" value="Submit" size="100" onclick="suggestion()"/> 
+            </div>
     </body>
 </html> 

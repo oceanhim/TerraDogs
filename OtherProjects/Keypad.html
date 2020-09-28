@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <script src="js/common.js"></script>
+        <script lang="javascript">
+
+            let opr = "+";
+
+            let curSum=0;
+
+
+            function oprClicked(btn){
+                opr = btn.value;
+            }
+
+
+            function clicked(btn){
+
+                if(opr=="-"){
+                    curSum -= parseInt(btn.value);
+                }else{
+                    curSum += parseInt(btn.value);
+                }
+                
+                console.log(curSum);
+                document.getElementById("res").innerText=curSum; style="font-size: 50px;";
+            }
+            
+        </script>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td valign="top">
+                    <table border=1 align="center">
+                        <tr>
+                            <td align="center"><input style="font-size: 50px;" type="button" id="btn1" value="1" onclick="clicked(this);"></td>
+                            <td align="center"><input style="font-size: 50px;" type="button" id="btn3" value="2" onclick="clicked(this);"></td>
+                            <td align="center"><input style="font-size: 50px;" type="button" id="btn1" value="3" onclick="clicked(this);"></td>
+                        </tr>
+                        <tr>
+                            <td align="center"><input style="font-size: 50px;" type="button" id="btn1" value="4" onclick="clicked(this);"></td>
+                            <td align="center"><input style="font-size: 50px;" type="button" id="btn1" value="5" onclick="clicked(this);"></td>
+                            <td align="center"><input style="font-size: 50px;" type="button" id="btn1" value="6" onclick="clicked(this);"></td>
+                        </tr>
+                        <tr>
+                            <td align="center"><input style="font-size: 50px;" type="button" id="btn1" value="7" onclick="clicked(this);"></td>
+                            <td align="center"><input style="font-size: 50px;" type="button" id="btn1" value="8" onclick="clicked(this);"></td>
+                            <td align="center"><input style="font-size: 50px;" type="button" id="btn1" value="9" onclick="clicked(this);"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" align="center"><input style="font-size: 50px;" type="button" id="btn1" value="0" onclick="clicked(this);"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td align="left" valign="top">
+                    <table>
+                        <tr>
+                            <td align="center"><input style="font-size: 50px;" type="button" id="btn1" value="+" onclick="oprClicked(this);"></td>
+                        </tr>
+                        <tr>
+                            <td align="center"><input style="font-size: 50px;" type="button" id="btn1" value="-" onclick="oprClicked(this);"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div id="res"></div>
+    </body>
+    
+</html>
