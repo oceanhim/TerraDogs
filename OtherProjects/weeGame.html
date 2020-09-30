@@ -1,41 +1,149 @@
 <script lang="javascript">
-let FirstName = 'Joe';
-let Health = 100;
-let Level = 1;
-let Gold = 0;
-let CharStats = [FirstName, Health, Level, Gold];
-let opponentshealth = 100
-let Damage = 20;
-function ShowStats () {
-    console.log (CharStats)
+
+let OrcHealth = parseInt("100");
+
+let player = {};
+player.FirstName ="Altavich";
+player.Health = 100;
+player.Level= 1;
+player.Gold = 0;
+player.Strength = 5;
+player.DamageBonus = 1
+player.Inventory = [];
+player.Xp = 0;
+player.XpNeeded = 50;
+
+let Weapon = {}
+Weapon.Name = "WoodenSword";
+Weapon.DamageBonus= 1;
+Weapon.Cost= 0;
+Weapon.SellAmount = 10;
+
+let TinSword = {}
+TinSword.Name = "TinSword";
+TinSword.DamageBonus= 5;
+TinSword.Cost= 30
+TinSword.SellAmount = 20;
+
+let IronSword = {}
+IronSword.Name = "IronSword";
+IronSword.DamageBonus= 10
+IronSword.cost= 50;
+IronSword.SellAmount = 30;
+
+let DiamondSword = {}
+DiamondSword.Name = "DiamondSword"
+DiamondSword.DamageBonus= 20
+DiamondSword.Cost= 100;
+DiamondSword.SellAmount = 60;
+
+let PlatinumSword = {}
+PlatinumSword.Name = "PlatinumSword"
+PlatinumSword.DamageBonus= 30
+PlatinumSword.Cost= 200;
+PlatinumSword.SellAmount = 135;
+
+let Store={};
+Store.Inventory = ["TinSword", "IronSword", "DiamondSword", "PlatinumSword"]
+
+function EnoughXpToLevelUp () {
+    if (player.Xp >= player.XpNeeded) {
+        player.Level += 1;
+        player.Gold += 10;
+        player.Strength += 5
+        player.Xp =0;
+        player.XpNeeded = player.Level * 50
+        alert (`You Leveled up! You are now Level ${player.Level}`)
+    }
+}
+
+function OpenInventory () {
+    console.log (player.Inventory)
 }
 
 function UseMySword () {
-    opponentshealth -= Damage;
-    console.log (`Your opponents health is ${opponentshealth}`)
-    if (opponentshealth > 0) {
-        console.log("They are still alive, you got this, keep going!")
+    OrcHealth -= (player.Strength + player.DamageBonus);
+    console.log (`the Orc's health is ${OrcHealth}`)
+    if (OrcHealth > 0) {
+        console.log(`BAM! You just did ${player.Strength + player.DamageBonus} Damage`)
     }else {
-        Level += 1
-        Gold += 10
-        alert (`Level up! You are now level ${Level}.`)
-        opponentshealth = Level * 100
-        alert (`Your next opponents health is at ${opponentshealth}`)
-        alert (`You now have ${Gold} Gold`)
+        player.Xp += 25;
+        player.Gold += 5
+        EnoughXpToLevelUp();
+        OrcHealth = player.Level * 100
+        alert (`The next Orc's health is at ${OrcHealth}`)
+        alert (`You now have ${player.Gold} Gold`)
+    }
+}
+
+function SellingTinSword (value, index, array) {
+    return value = "TinSword"
+}
+
+function SellTinSword () {
+    if (player.Inventory.find(SellingTinSword)) {
+        player.Inventory.pop("Tinsword")
+        console.log ("Thank you, have a good day!")
+        player.Gold += TinSword.SellAmount;
+        alert (`You got ${TinSword.SellAmount} gold from selling your Tin Sword`)
+    }else {
+        console.log ("Sorry, you don't have that.")
+    }
+}
+
+function SellingIronSword (value, index, array) {
+    return value = "IronSword"
+}
+
+function SellIronSword () {
+    if (player.Inventory.find(SellingIronSword)) {
+        console.log ("Thank you, have a good day!")
+        player.Gold += IronSword.SellAmount;
+        alert (`You got ${IronSword.SellAmount} gold from selling your Iron Sword`)
+    }else {
+        console.log ("Sorry, you don't have that.")
+    }
+}
+
+function SellingDiamondSword (value, index, array) {
+    return value = "DiamondSword"
+}
+
+function SellDiamondSword () {
+    if (player.Inventory.find(SellingDiamondSword)) {
+        console.log ("Thank you, have a good day!")
+        player.Gold += DiamondSword.SellAmount;
+        alert (`You got ${DiamondSword.SellAmount} gold from selling your Diamond Sword`)
+    }else {
+        console.log ("Sorry, you don't have that.")
+    }
+}
+
+function SellingPlatinumSword (value, index, array) {
+    return value = "PlatinumSword"
+}
+
+function SellPlatinumSword () {
+    if (player.Inventory.find(SellingPlatinumSword)) {
+        console.log ("Thank you, have a good day!")
+        player.Gold += PlatinumSword.SellAmount;
+        alert (`You got ${PlatinumSword.SellAmount} gold from selling your Platinum Sword`)
+    }else {
+        console.log ("Sorry, you don't have that.")
     }
 }
 
 function OpenShop () {
-    console.log ("Here are the items in our shop")
-    console.log ('Tin sword: 30 Gold,', 'Iron sword: 50 Gold,', 'Diamond sword 100 Gold,', 'Platinum sword 200 Gold');
-    
+    console.log (`Here are the items in our shop: ${Store.Inventory}`)
+
 }
 
 function BuyTinSword () {
-    if (Gold >= 30) {
-        Gold -= 30;
+    if (player.Gold >= TinSword.Cost) {
+        player.Gold -= TinSword.Cost;
         console.log ("Here you go.")
-        Damage += 20;
+        player.DamageBonus = 5;
+        player.Inventory.push ("TinSword");
     } else {
         console.log ("sorry, you don't have enough gold yet. Come back when you have enough.")
     }
@@ -44,33 +152,46 @@ function BuyTinSword () {
 
 
 function BuyIronSword () {
-    if (Gold >= 50) {
-        Gold -= 50;
+    if (player.Gold >= IronSword.Cost) {
+        player.Gold -= IronSword.Cost;
         console.log ("Here you go.")
-        Damage += 40;
+        player.DamageBonus = 10;
+        player.Inventory.push ("IronSword");
     } else {
         console.log ("sorry, you don't have enough gold yet. Come back when you have enough.")
     }
 }
 
 function BuyDiamondSword () {
-    if (Gold >= 100) {
-        Gold -= 100;
+    if (player.Gold >= DiamondSword.Cost) {
+        player.Gold -= DiamondSword.Cost;
         console.log ("Here you go.")
-        Damage += 60;
+        player.DamageBonus = 20;
+        player.Inventory.push ("DiamondSword");
     } else {
         console.log ("sorry, you don't have enough gold yet. Come back when you have enough.")
     }
 }
 
 function BuyPlatinumSword () {
-    if (Gold >= 200) {
-        Gold -= 200;
+    if (player.Gold >= PlatinumSword.Cost) {
+        player.Gold -= PlatinumSword.Cost;
         console.log ("Here you go.")
-        Damage += 100;
+        player.DamageBonus += 30;
+        player.Inventory.push ("PlatinumSword");
     } else {
         console.log ("sorry, you don't have enough gold yet. Come back when you have enough.")
     }
+}
+
+
+function updateCharStats(){
+    return [`Your Name: ${player.FirstName}, Health: ${player.Health}, Level: ${player.Level}, Gold: ${player.Gold}, Strength: ${player.Strength}, Weapon Damage: ${player.DamageBonus} Total Damage: ${player.Strength + player.DamageBonus}, XP: ${player.Xp} / ${player.XpNeeded}`];
+}
+// let CharStats = updateCharStats
+
+function ShowStats () {
+    document.getElementById("Stats").innerText=updateCharStats(); style="font-size: 200px;"
 }
 
 </script>
@@ -85,11 +206,17 @@ function BuyPlatinumSword () {
         <input type="button" value="Open Shop" onclick="OpenShop()">
         <input type="button" class="PurchaseButton" id="Purchase1" value="Buy Tin Sword" onclick="BuyTinSword()">
         <input type="button" value="Buy Iron Sword" onclick="BuyIronSword()">
-        <input type="button" value="Buy Diamond Sword" onclick="BuyIDiamondSword()">
+        <input type="button" value="Buy Diamond Sword" onclick="BuyDiamondSword()">
         <input type="button" value="Buy Platinum Sword" onclick="BuyPlatinumSword()">
-
+        <input type="button" value="Inventory" onclick="OpenInventory()">
+        <input type="button" value="Sell Tin Sword" onclick="SellTinSword()">
+        <input type="button" value="Sell Iron Sword" onclick="SellIronSword()">
+        <input type="button" value="Sell Diamond Sword" onclick="SellDiamondSword()">
+        <input type="button" value="Sell Platinum Sword" onclick="SellPlatinumSword()">
         <div style="width: 300px; height: 300px; background-color: gray;">
-            <img src="peson.jpg" width="15px" height="15px" id="p1" />
+            <img src="../WebsiteMaterial/images/peson.jpg" width="150px" height="150px" id="p1" />
+            <img src="../WebsiteMaterial/images/orc.jpg" width="150px" height="150px" style="text-align: right;" id="opponent" />
         </div>
+        <div id="Stats"></div>
     </body>
 </html>
