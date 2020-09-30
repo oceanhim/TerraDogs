@@ -2,22 +2,74 @@
 let FirstName = 'Joe';
 let Health = 100;
 let Level = 1;
-let CharStats = [FirstName, Health, Level];
+let Gold = 0;
+let CharStats = [FirstName, Health, Level, Gold];
 let opponentshealth = 100
+let Damage = 20;
 function ShowStats () {
     console.log (CharStats)
 }
 
 function UseMySword () {
-    opponentshealth -= 20;
+    opponentshealth -= Damage;
     console.log (`Your opponents health is ${opponentshealth}`)
     if (opponentshealth > 0) {
         console.log("They are still alive, you got this, keep going!")
     }else {
         Level += 1
-        alert (`AWESOME! YOU KILLED THEM! You are now level ${Level}.`)
+        Gold += 10
+        alert (`Level up! You are now level ${Level}.`)
         opponentshealth = Level * 100
         alert (`Your next opponents health is at ${opponentshealth}`)
+        alert (`You now have ${Gold} Gold`)
+    }
+}
+
+function OpenShop () {
+    console.log ("Here are the items in our shop")
+    console.log ('Tin sword: 30 Gold,', 'Iron sword: 50 Gold,', 'Diamond sword 100 Gold,', 'Platinum sword 200 Gold');
+    
+}
+
+function BuyTinSword () {
+    if (Gold >= 30) {
+        Gold -= 30;
+        console.log ("Here you go.")
+        Damage += 20;
+    } else {
+        console.log ("sorry, you don't have enough gold yet. Come back when you have enough.")
+    }
+
+}
+
+
+function BuyIronSword () {
+    if (Gold >= 50) {
+        Gold -= 50;
+        console.log ("Here you go.")
+        Damage += 40;
+    } else {
+        console.log ("sorry, you don't have enough gold yet. Come back when you have enough.")
+    }
+}
+
+function BuyDiamondSword () {
+    if (Gold >= 100) {
+        Gold -= 100;
+        console.log ("Here you go.")
+        Damage += 60;
+    } else {
+        console.log ("sorry, you don't have enough gold yet. Come back when you have enough.")
+    }
+}
+
+function BuyPlatinumSword () {
+    if (Gold >= 200) {
+        Gold -= 200;
+        console.log ("Here you go.")
+        Damage += 100;
+    } else {
+        console.log ("sorry, you don't have enough gold yet. Come back when you have enough.")
     }
 }
 
@@ -29,8 +81,13 @@ function UseMySword () {
     </head>
     <body>
         <input type="button" value="Show Stats" onclick="ShowStats()">
-        <input type="button" value="Use My Sword" onclick="UseMySword()">
-        
+        <input type="button" id="WoodenSword" value="Use My Sword" onclick="UseMySword()">
+        <input type="button" value="Open Shop" onclick="OpenShop()">
+        <input type="button" class="PurchaseButton" id="Purchase1" value="Buy Tin Sword" onclick="BuyTinSword()">
+        <input type="button" value="Buy Iron Sword" onclick="BuyIronSword()">
+        <input type="button" value="Buy Diamond Sword" onclick="BuyIDiamondSword()">
+        <input type="button" value="Buy Platinum Sword" onclick="BuyPlatinumSword()">
+
         <div style="width: 300px; height: 300px; background-color: gray;">
             <img src="peson.jpg" width="15px" height="15px" id="p1" />
         </div>
