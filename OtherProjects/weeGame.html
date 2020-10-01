@@ -1,6 +1,6 @@
 <script lang="javascript">
 
-let OrcHealth = parseInt("100");
+let OrcHealth = 100;
 
 
 
@@ -13,12 +13,12 @@ let DiamondSword = initWeapon("DiamondSword",30,50,100,60);
 let PlatinumSword = initWeapon("PlatinumSword",50,100,200,135);
 
 
-function initWeapon(name, minDmg, maxDmg, cost, value){
+function initWeapon(name, minDmg, maxDmg, Cost, value){
         return {
             Name : name,
             minDamage : minDmg,
             maxDamage : maxDmg,
-            Cost : cost,
+            Cost : Cost,
             SellAmount : value
         };
 }
@@ -65,18 +65,18 @@ function UseMySword () {
     //console.log (`the Orc's health is ${OrcHealth}`)
     if (OrcHealth <= 0) {
         player.Xp += 25;
-        player.Gold += 5
+        player.Gold += 30
         console.log("Oooh, collected 5 gold from the Orc!")
         EnoughXpToLevelUp();
         OrcHealth = player.Level * 100
         alert (`The next Orc's health is at ${OrcHealth}`)
         alert (`You now have ${player.Gold} Gold`)
     }
-    console.log(`You used the ${player.ActiveWeapon.Name} to do ${thisTurnDamage} damage to the Orc, now it has ${OrcHealth} Health left`)
+    console.log(`You used your ${player.ActiveWeapon.Name} to do ${thisTurnDamage} damage to the Orc, now it has ${OrcHealth} Health left`)
 }
 
-function instore () {
-    Store.Inventory.find( ele => ele === item)
+function instore (item) {
+    return Store.Inventory.find( ele => ele === item)
 }
 
 
@@ -101,9 +101,10 @@ function sellItem(item){
     console.log(`You now have ${player.Gold}`)
 }
 function BuyItem(item){
+    
     if(canAfford(item) && instore(item)){
         player.Inventory.push(item); 
-        player.Gold -= TinSword.Cost;
+        player.Gold -= item.Cost;
         console.log ("Here you go.")       
         Store.Inventory.pop(item); 
         player.ActiveWeapon = player.Inventory[player.Inventory.length-1]
@@ -111,14 +112,14 @@ function BuyItem(item){
     }else{
         console.log ("sorry, you don't have enough gold yet. Come back when you have enough.")
     }
-    console.log(`You now have ${player.Gold}`)
+    console.log(`You have ${player.Gold} Gold`)
 }
 
 
 
 
 function updateCharStats(){
-    return [`Your Name: ${player.FirstName}, Health: ${player.Health}, Level: ${player.Level}, Gold: ${player.Gold}, Strength: ${player.Strength}, Active Weapon: ${player.ActiveWeapon.name}, XP: ${player.Xp} / ${player.XpNeeded}`];
+    return [`Your Name: ${player.FirstName}, Health: ${player.Health}, Level: ${player.Level}, Gold: ${player.Gold}, Strength: ${player.Strength}, Active Weapon: ${player.ActiveWeapon.Name}, XP: ${player.Xp} / ${player.XpNeeded}`];
 }
 // let CharStats = updateCharStats
 
@@ -136,7 +137,7 @@ function ShowStats () {
         <input type="button" value="Show Stats" onclick="ShowStats()">
         <input type="button" id="WoodenSword" value="Use My Sword" onclick="UseMySword()">
         <input type="button" value="Open Shop" onclick="OpenShop()">
-        <input type="button" class="PurchaseButton" id="Purchase1" value="Buy Tin Sword" onclick="BuyItem(TinSword)">
+        <input type="button" value="Buy Tin Sword" onclick="BuyItem(TinSword)">
         <input type="button" value="Buy Iron Sword" onclick="BuyItem(IronSword)">
         <input type="button" value="Buy Diamond Sword" onclick="BuyItem(DiamondSword)">
         <input type="button" value="Buy Platinum Sword" onclick="BuyItem(PlatinumSword)">
