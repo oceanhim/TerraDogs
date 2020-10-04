@@ -55,14 +55,23 @@ function EnoughXpToLevelUp () {
 }
 
 function OpenInventory () {
-    console.log (player.Inventory)
+    console.log(player.Inventory);
 }
 
 function UseMySword () {
     let thisturnWeaponDmg = getDamage(player.ActiveWeapon);
     let thisTurnDamage = thisturnWeaponDmg + player.Strength
     
+    function ReturningcombatInfo () {
+        return [`You used your ${player.ActiveWeapon.Name} to do ${thisTurnDamage} damage to the Orc, now it has ${OrcHealth} Health left`];
+    }
+
+    function combatInfo () {
+    document.getElementById("InventoryItems").innerText=ReturningcombatInfo(); style="font-size: 120px;"
+}
+
     OrcHealth -= (thisTurnDamage);
+    combatInfo();
     //console.log (`the Orc's health is ${OrcHealth}`)
     if (OrcHealth <= 0) {
         player.Xp += 25;
@@ -81,11 +90,11 @@ function instore (item) {
 }
 
 function OpenShop () {
-    let x = document.getElementById("ShopActions");
-    if (x.style.display === "none") {
-    x.style.display = "block";
+    let ShopButtons = document.getElementById("ShopActions");
+    if (ShopButtons.style.display === "none") {
+    ShopButtons.style.display = "block";
   } else {
-    x.style.display = "none";
+    ShopButtons.style.display = "none";
   }
 }
 
@@ -127,10 +136,8 @@ function updateCharStats(){
 // let CharStats = updateCharStats
 
 function ShowStats () {
-    document.getElementById("Stats").innerText=updateCharStats(); style="font-size: 200px;"
+    document.getElementById("Stats").innerText=updateCharStats(); style="font-size: 120px;"
 }
- 
-
 
 </script>
 
@@ -160,32 +167,60 @@ function ShowStats () {
             .tooltip:hover {
                 border-radius: 10px;
                 border-right-color: seagreen;
-                background-color: red;
+                background-color: cyan;
                 border-bottom-color: royalblue;
                 border-left: slateblue;
                 border-top: tomato;
+                cursor: pointer;
             }
 
             .tooltip:hover .tooltiptext {
                 visibility: visible;
             }
+        
+        
+        
         </style>
     </head>
     <body>
-        <input type="button" value="Show Stats" onclick="ShowStats()">
-        <input type="button" id="WoodenSword" value="Use My Sword" onclick="UseMySword()">
-        <input type="button" value="Open Shop" onclick="OpenShop()">
-        <input type="button" value="Inventory" onclick="OpenInventory()">
+        <input type="button" class="tooltip" value="Show Stats" onclick="ShowStats()">
+        <input type="button" class="tooltip" id="TheWeaponTheCharacterIsUsing" value="Use My Sword" onclick="UseMySword()">
+        <input type="button" class="tooltip" value="Open Shop" onclick="OpenShop()">
+        <input type="button" class="tooltip" value="Inventory" onclick="OpenInventory()">
         <h1>
         <div id="ShopActions" style="display: none;">
-        <input type="button" class="tooltip" value="Buy Tin Sword" onclick="BuyItem(TinSword)"> 
-        <input type="button" class="tooltip" value="Buy Iron Sword" onclick="BuyItem(IronSword)"> 
-        <input type="button" class="tooltip" value="Buy Diamond Sword" onclick="BuyItem(DiamondSword)"> 
-        <input type="button" class="tooltip" value="Buy Platinum Sword" onclick="BuyItem(PlatinumSword)"> 
-        <input type="button" class="tooltip" value="Sell Tin Sword" onclick="sellItem(TinSword)">
-        <input type="button" class="tooltip" value="Sell Iron Sword" onclick="sellItem(IronSword)">
-        <input type="button" class="tooltip" value="Sell Diamond Sword" onclick="sellItem(DiamondSword)">
-        <input type="button" class="tooltip" value="Sell Platinum Sword" onclick="sellItem(PlatinumSword)">
+            <div class="tooltip1">
+                    <span class="tooltiptext" style="font-size: large;">30 Gold:</span>
+                <input type="button" class="tooltip" value="Buy Tin Sword" onclick="BuyItem(TinSword)"> 
+            </div>
+            <div>        
+                    <span class="tooltiptext2" style="font-size: large;">50 Gold:</span>
+                <input type="button" class="tooltip" value="Buy Iron Sword" onclick="BuyItem(IronSword)"> 
+            </div>        
+            <div>        
+                    <span class="tooltiptext3" style="font-size: large;">100 Gold:</span>
+                <input type="button" class="tooltip" value="Buy Diamond Sword" onclick="BuyItem(DiamondSword)"> 
+            </div>        
+            <div>
+                    <span class="tooltiptext4" style="font-size: large;">200 Gold:</span>
+                <input type="button" class="tooltip" value="Buy Platinum Sword" onclick="BuyItem(PlatinumSword)"> 
+            </div>
+            <div>        
+                    <span class="tooltiptext5" style="font-size: large;">20 Gold:</span>
+                <input type="button" class="tooltip" value="Sell Tin Sword" onclick="sellItem(TinSword)">
+            </div>        
+            <div>        
+                    <span class="tooltiptext6" style="font-size: large;">30 Gold:</span>
+                <input type="button" class="tooltip" value="Sell Iron Sword" onclick="sellItem(IronSword)">
+            </div>     
+            <div>    
+                    <span class="tooltiptext7" style="font-size: large;">60 Gold:</span>
+                <input type="button" class="tooltip" value="Sell Diamond Sword" onclick="sellItem(DiamondSword)">
+            </div>     
+            <div>    
+                    <span class="tooltiptext8" style="font-size: large;">135 Gold:</span>
+                <input type="button" class="tooltip" value="Sell Platinum Sword" onclick="sellItem(PlatinumSword)">
+            </div>    
         </div>
         </h1>
         <div style="width: 300px; height: 300px; background-color: gray;">
@@ -194,5 +229,7 @@ function ShowStats () {
         </div>
         <div id="Stats"></div>
         <div id="Store"></div>
+        <div id="InventoryItems"></div>
+        <div id="InventoryItem1"></div>
     </body>
 </html>
