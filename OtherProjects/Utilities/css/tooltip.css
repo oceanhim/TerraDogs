@@ -2,6 +2,7 @@
     position: relative;
     display: inline-block;
     font-size: medium;
+    font-style: italic;
 }
 
 .tooltip .tooltiptext {
@@ -25,8 +26,29 @@
     border-bottom-color: royalblue;
     border-left: slateblue;
     border-top: tomato;
+    cursor: pointer;
 }
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
+}
+
+.advertisementForDadsGame {
+    margin: auto;
+    width: 20%;
+    text-align: right;
+    border: 3px solid indigo;
+    padding: 10px;
+    overflow: auto;
+}
+
+a:link a:hover {
+    cursor: pointer;
+}
+
+.SnakeImg {
+    float: right;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
