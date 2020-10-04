@@ -82,7 +82,6 @@ function UseMySword () {
         alert (`The next Orc's health is at ${OrcHealth}`)
         alert (`You now have ${player.Gold} Gold`)
     }
-    console.log(`You used your ${player.ActiveWeapon.Name} to do ${thisTurnDamage} damage to the Orc, now it has ${OrcHealth} Health left`)
 }
 
 function instore (item) {
@@ -178,58 +177,95 @@ function ShowStats () {
                 visibility: visible;
             }
         
+            .advertisementForDadsGame {
+                margin: auto;
+                width: 20%;
+                text-align: right;
+                border: 3px solid indigo;
+                padding: 10px;
+                overflow: auto;
+            }
         
-        
+            a:link a:hover {
+                cursor: pointer;
+            }
+
+            .SnakeImg {
+                float: right;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
         </style>
     </head>
     <body>
-        <input type="button" class="tooltip" value="Show Stats" onclick="ShowStats()">
-        <input type="button" class="tooltip" id="TheWeaponTheCharacterIsUsing" value="Use My Sword" onclick="UseMySword()">
-        <input type="button" class="tooltip" value="Open Shop" onclick="OpenShop()">
-        <input type="button" class="tooltip" value="Inventory" onclick="OpenInventory()">
-        <h1>
-        <div id="ShopActions" style="display: none;">
-            <div class="tooltip1">
-                    <span class="tooltiptext" style="font-size: large;">30 Gold:</span>
-                <input type="button" class="tooltip" value="Buy Tin Sword" onclick="BuyItem(TinSword)"> 
-            </div>
-            <div>        
-                    <span class="tooltiptext2" style="font-size: large;">50 Gold:</span>
-                <input type="button" class="tooltip" value="Buy Iron Sword" onclick="BuyItem(IronSword)"> 
-            </div>        
-            <div>        
-                    <span class="tooltiptext3" style="font-size: large;">100 Gold:</span>
-                <input type="button" class="tooltip" value="Buy Diamond Sword" onclick="BuyItem(DiamondSword)"> 
-            </div>        
-            <div>
-                    <span class="tooltiptext4" style="font-size: large;">200 Gold:</span>
-                <input type="button" class="tooltip" value="Buy Platinum Sword" onclick="BuyItem(PlatinumSword)"> 
-            </div>
-            <div>        
-                    <span class="tooltiptext5" style="font-size: large;">20 Gold:</span>
-                <input type="button" class="tooltip" value="Sell Tin Sword" onclick="sellItem(TinSword)">
-            </div>        
-            <div>        
-                    <span class="tooltiptext6" style="font-size: large;">30 Gold:</span>
-                <input type="button" class="tooltip" value="Sell Iron Sword" onclick="sellItem(IronSword)">
-            </div>     
-            <div>    
-                    <span class="tooltiptext7" style="font-size: large;">60 Gold:</span>
-                <input type="button" class="tooltip" value="Sell Diamond Sword" onclick="sellItem(DiamondSword)">
-            </div>     
-            <div>    
-                    <span class="tooltiptext8" style="font-size: large;">135 Gold:</span>
-                <input type="button" class="tooltip" value="Sell Platinum Sword" onclick="sellItem(PlatinumSword)">
-            </div>    
-        </div>
-        </h1>
-        <div style="width: 300px; height: 300px; background-color: gray;">
-            <img src="../WebsiteMaterial/images/peson.jpg" width="150px" height="150px" id="p1" />
-            <img src="../WebsiteMaterial/images/orc.jpg" width="150px" height="150px" style="text-align: right;" id="opponent" />
-        </div>
+        <table width="100%" height="100%">
+            <tr>
+                <td valign="top">
+                    <input type="button" class="tooltip" value="Show Stats" onclick="ShowStats()">
+                    <input type="button" class="tooltip" id="TheWeaponTheCharacterIsUsing" value="Use My Sword" onclick="UseMySword()">
+                    <input type="button" class="tooltip" value="Open Shop" onclick="OpenShop()">
+                    <input type="button" class="tooltip" value="Inventory" onclick="OpenInventory()">
+                    <h1>
+                    <div id="ShopActions" style="display: none;">
+                        <div class="tooltip1">
+                                <span class="tooltiptext" style="font-size: large;">30 Gold:</span>
+                            <input type="button" class="tooltip" value="Buy Tin Sword" onclick="BuyItem(TinSword)"> 
+                        </div>
+                        <div>        
+                                <span class="tooltiptext2" style="font-size: large;">50 Gold:</span>
+                            <input type="button" class="tooltip" value="Buy Iron Sword" onclick="BuyItem(IronSword)"> 
+                        </div>        
+                        <div>        
+                                <span class="tooltiptext3" style="font-size: large;">100 Gold:</span>
+                            <input type="button" class="tooltip" value="Buy Diamond Sword" onclick="BuyItem(DiamondSword)"> 
+                        </div>        
+                        <div>
+                                <span class="tooltiptext4" style="font-size: large;">200 Gold:</span>
+                            <input type="button" class="tooltip" value="Buy Platinum Sword" onclick="BuyItem(PlatinumSword)"> 
+                        </div>
+                        <div>        
+                                <span class="tooltiptext5" style="font-size: large;">20 Gold:</span>
+                            <input type="button" class="tooltip" value="Sell Tin Sword" onclick="sellItem(TinSword)">
+                        </div>        
+                        <div>        
+                                <span class="tooltiptext6" style="font-size: large;">30 Gold:</span>
+                            <input type="button" class="tooltip" value="Sell Iron Sword" onclick="sellItem(IronSword)">
+                        </div>     
+                        <div>    
+                                <span class="tooltiptext7" style="font-size: large;">60 Gold:</span>
+                            <input type="button" class="tooltip" value="Sell Diamond Sword" onclick="sellItem(DiamondSword)">
+                        </div>     
+                        <div>    
+                                <span class="tooltiptext8" style="font-size: large;">135 Gold:</span>
+                            <input type="button" class="tooltip" value="Sell Platinum Sword" onclick="sellItem(PlatinumSword)">
+                        </div>    
+                    </div>
+                    </h1>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="width: 300px; height: 300px; background-color: gray;">
+                        <img src="../WebsiteMaterial/images/peson.jpg" width="150px" height="150px" id="p1" />
+                        <img src="../WebsiteMaterial/images/orc.jpg" width="150px" height="150px" style="text-align: right;" id="opponent" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                        <div class="advertisementForDadsGame">
+                            <p>Create your own levels, beat challenges, and send suggestions to the developer!</p>    
+                            <a href="https://inspiring-mahavira-42a2b1.netlify.app/">
+                            <img class="SnakeImg" src="../WebsiteMaterial/images/SnakeImg.jpg" alt="Snake" width="250" height="300">
+                            </a>
+                        </div>                       
+                </td>
+            </tr>
+        </table>
         <div id="Stats"></div>
         <div id="Store"></div>
         <div id="InventoryItems"></div>
-        <div id="InventoryItem1"></div>
     </body>
 </html>
