@@ -1,0 +1,185 @@
+<html>
+    <head>
+        <title>weeGame2Tutorial</title>
+    </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .tooltip {
+                font-size: large;
+                color: darkblue;
+                font-style: italic;
+            }
+            
+            .tooltiptext {
+                font-size: large;
+                color: gold;
+                font-style: italic;
+            }
+
+            body {
+                background-color: black;
+                font-family: cursive;
+            }
+
+            .glow {
+                font-size: 80px;
+                color: #fff;
+                text-align: center;
+                -webkit-animation: glow 1s ease-in-out infinite alternate;
+                -moz-animation: glow 1s ease-in-out infinite alternate;
+                animation: glow 1s ease-in-out infinite alternate;
+            }
+
+            @-webkit-keyframes glow {
+                from {
+                    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+                }
+                
+                to {
+                    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+                }
+            }
+        </style>
+    <body>    
+        <script lang="javascript">
+            function Step1OfTutorial() {
+                let TutorialStep101 = document.getElementById("line1");
+                if (TutorialStep101.style.display === "none") {
+                    TutorialStep101.style.display = "block";
+                } else {
+                    TutorialStep1.style.display = "none";
+                }
+                setTimeout(Step1OfTutorial2, 1000);
+            }
+            
+            function Step1OfTutorial2() {
+                let TutorialStep102 = document.getElementById("step2btn")
+                if (TutorialStep102.style.display === "none") {
+                    TutorialStep102.style.display = "block";
+                } else {
+                    TutorialStep102.style.display = "none";
+                }
+                
+            }
+            function Step2OfTutorial(){
+                let TutorialStep103 = document.getElementById("line2");
+                if (TutorialStep103.style.display === "none") {
+                    TutorialStep103.style.display = "block";
+                } else {
+                    TutorialStep103.style.display = "none";
+                }
+                setTimeout(Step2OfTutorial2, 1000);
+            }
+            
+            function Step2OfTutorial2() {
+                let TutorialStep104 = document.getElementById("step3btn")
+                if (TutorialStep104.style.display === "none") {
+                    TutorialStep104.style.display = "block";
+                } else {
+                    TutorialStep104.style.display = "none";
+                }
+                
+            }
+        
+            function Step3OfTutorial(){
+                let TutorialStep105 = document.getElementById("line3");
+                if (TutorialStep105.style.display === "none") {
+                    TutorialStep105.style.display = "block";
+                } else {
+                    TutorialStep105.style.display = "none";
+                }
+                setTimeout(Step3OfTutorial3, 1000);
+            }
+        
+            function Step3OfTutorial3(){
+                let TutorialStep106 = document.getElementById("step4btn");
+                if (TutorialStep106.style.display === "none") {
+                    TutorialStep106.style.display = "block";
+                } else {
+                    TutorialStep106.style.display = "none";
+                }
+                
+            }
+            
+            function Step4OfTutorial(){
+                let TutorialStep107 = document.getElementById("line4");
+                if (TutorialStep107.style.display === "none") {
+                    TutorialStep107.style.display = "block";
+                } else {
+                    TutorialStep107.style.display = "none";
+                }
+                setTimeout(Step4OfTutorial4, 1000);
+            }
+            
+            function Step4OfTutorial4(){
+                let TutorialStep108 = document.getElementById("step5btn");
+                if (TutorialStep108.style.display === "none") {
+                    TutorialStep108.style.display = "block";
+                } else {
+                    TutorialStep108.style.display = "none";
+                }
+                
+            }
+            
+            function Step5OfTutorial(){
+                let TutorialStep109 = document.getElementById("line5");
+                if (TutorialStep109.style.display === "none") {
+                    TutorialStep109.style.display = "block";
+                } else {
+                    TutorialStep109.style.display = "none";
+                }
+                setTimeout(EnterGame, 3500)
+            }
+            
+            function EnterGame() {
+                if (confirm('Are you ready to play the game?')) {
+      				window.location = 'file:///C:/_code/TerraDog/oceanhim.github.io/weeGame2.html'
+    			} else {
+                    alert("Feel free to keep practicing in the tutorial.")
+                    let gamereturn = document.getElementById("returntogame");
+                    if (gamereturn.style.display === "none") {
+                        gamereturn.style.display = "block";
+
+                }
+                }
+            }
+            
+            function returntothegame() {
+                if (confirm('Are you ready to play the game now?')) {
+      				window.location = 'file:///C:/_code/TerraDog/oceanhim.github.io/weeGame2.html'
+    			}
+            }
+            /*What I need to do next:
+                When they click the Step1 button, after 4 seconds, the attack button will appear and the player can see how the cooldown works.
+                When they click the Second button, an example of their damage counter will pop up/ same for when the orc attacks.
+                When they click the 3rd button, I will show what your Armor stat will look like and how it comes into play.
+                When they click the fourth button. I will show the player their stats/ an example and their high achievement.0
+
+            */
+            </script>
+        <h1 class="glow">
+            weeGame2Tutorial
+        </h1>
+        <input type="button" class="tooltip" id="step1btn" value="Step1" onclick="Step1OfTutorial()">
+        
+        <li id="line1" style="display: none;" class="tooltiptext">Whenever you attack using the attack button, it will go away because you will have a cooldown of 2 seconds. So you can't attack for 2 seconds, then the button will pop up again and you can attack again</li>
+        
+        <input style="display: none;" type="button" class="tooltip" id="step2btn" value="Step2" onclick="Step2OfTutorial()">
+        
+        <li id="line2" style="display: none;" class="tooltiptext">When you attack, the amount of damage you have done will be displayed in blue color text with a black background.</li>
+        
+        <input style="display: none;" type="button" class="tooltip" id="step3btn" value="Step3" onclick="Step3OfTutorial()">
+
+        <li id="line3" style="display: none;" class="tooltiptext">Both you and the orcs will have armor and that armor will block some of the damage that you and the orcs will do.</li>
+        
+        <input style="display: none;" type="button" class="tooltip" id="step4btn" value="Step4" onclick="Step4OfTutorial()">
+
+        <li id="line4" style="display: none;" class="tooltiptext">You have Gold and a score. Each time you defeat an orc, you will gain gold and 1 added to your score. You will have a high score and the higher the score, the more rewards, achievements, and more!</li>
+
+        <input style="display: none;" type="button" class="tooltip" id="step5btn" value="Step5" onclick="Step5OfTutorial()">
+        
+        <li id="line5" style="display: none;" class="tooltiptext">Orcs will attack automatically and somewhat frequently so be ready to fight! Compete with your friends to see who can get the highest score!</li>
+    
+        <input style="display: none;" type="button" class="tooltip" id="returntogame" value="Go to the game" onclick="returntothegame()">
+    </body>
+</html>

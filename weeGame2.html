@@ -1,0 +1,306 @@
+<html>
+	<head>
+		<script src="./Stats.js"></script>
+	</head>
+	<body onload="Stats()">
+		<style>
+		.tooltip {
+			Background: blue;
+			Border: 1px solid red;
+			font-style: Italic;
+			color: white;
+		}
+			
+		.tooltip:hover {
+			Background: green;
+			Border: 5px solid cyan;
+			cursor: pointer;
+		}
+		
+		.txtstyle1 {
+			background-color: black;
+			text-align: center;
+			font-size: 50px;
+			color: white;
+		}	
+	
+		.txtstyle2 {
+			background-color: black;
+			text-align: left;
+			font-size: 50px;
+			color: white;
+		}	
+		
+		#OrcDamage {
+			background-color: black;
+			text-align: center;
+			font-size: 50px;
+			color: red;
+		}
+
+		#OrcDamage2 {
+			background-color: black;
+			text-align: center;
+			font-size: 50px;
+			color: red;
+		}
+
+		#p1damage {
+			background-color: blue;
+			text-align: center;
+			font-size: 50px;
+			color: gray;
+		}
+		
+		body {
+                background-color: black;
+                font-family: cursive;
+            }
+
+            .glow {
+                font-size: 80px;
+                color: #fff;
+                text-align: center;
+                -webkit-animation: glow 1s ease-in-out infinite alternate;
+                -moz-animation: glow 1s ease-in-out infinite alternate;
+                animation: glow 1s ease-in-out infinite alternate;
+            }
+
+            @-webkit-keyframes glow {
+                from {
+                    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+                }
+                
+                to {
+                    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+                }
+            }
+		</style>
+		<script>
+
+			let Orc = CreateOrc();
+
+			//orc stats HQ
+			function CreateOrc() {
+				let Orc = {};
+				Orc.Health =25;
+				Orc.Weapon=CreateOrcsWeapon();				
+				Orc.Armour=CreateOrcsArmour();
+				return Orc;
+			}
+
+			function CreateOrcsWeapon() {
+				let sword = {};
+				sword.Durability = 100;
+				sword.Damage = 8;
+				return sword;
+			}
+			function CreateOrcsArmour() {
+				let Defense = {};
+				Defense.Chestpiece = 2;
+				Defense.Boots = 1;
+				Defense.Leggings = 2;
+				Defense.Helmet = 1; 
+				Defense.TotalArmour = (Defense.Chestpiece + Defense.Boots + Defense.Leggings + Defense.Helmet)
+				return Defense; 
+			}
+
+
+			//player stats HQ
+			let player = P1Stats();
+
+			function P1Stats() {
+				let player = {};
+				player.Health = 100;
+				player.Score = 0;
+				player.Gold = 0;
+				player.Weapon=P1Weapon();
+				player.Armour=P1Armour();
+				return player;
+			}
+
+			function P1Weapon() {
+				let weapon = {};
+				weapon.Durability = 100;
+				weapon.Damage = 8
+				return weapon;
+			}
+
+			function P1Armour() {
+				let P1Armour = {};
+				P1Armour.Chestpiece = 3;
+				P1Armour.Boots = 1;
+				P1Armour.Leggings = 2;
+				P1Armour.Helmet = 1;
+				P1Armour.TotalArmor = (P1Armour.Chestpiece + P1Armour.Boots + P1Armour.Leggings + P1Armour.Helmet)
+				return P1Armour;
+			}
+			
+			function UseMyWeapon () {
+				let attackcooldown = document.getElementById("one0one")
+					attackcooldown.style.display = "none";
+				setTimeout(revealbtn, 1000);
+				function revealbtn() {
+					if (attackcooldown.style.display === "none") {
+						attackcooldown.style.display = "block";
+					}
+				}
+				//damage resolution
+				if((Orc.Armour.TotalArmour - player.Weapon.Damage)<0){
+					Orc.Health -= (Orc.Armour.TotalArmour - player.Weapon.Damage) * -1;
+				}
+				 player.Weapon.Durability -= (player.Weapon.Damage / 2);
+				console.log (`You did ${player.Weapon.Damage} damage to the Orc. It has ${Orc.Health} Health`)
+				document.getElementById("p1damage").innerHTML=`${player.Weapon.Damage}`
+				//asking if the orc has died
+				if(Orc.Health <= 0) {
+					alert("YAY! You killed the Orc.")
+					player.Score ++;
+					Orc.Health = 25;
+					player.Gold += 5;
+					
+				}
+				//durability decrease
+				if (player.Weapon.Durability <= 0) {
+					player.Weapon.Damage = 0;
+					alert("Your weapon is broken")
+				}
+					setTimeout(clearp1txt, 2000)
+			}
+
+			function clearp1txt(){
+				p1damage.innerHTML='';
+			}
+			
+			let attacktimer = setInterval(OrcAttack, 5000);
+			
+			function OrcAttack() {
+				console.log("A orc is attacking you!")
+				if((player.Armour.TotalArmor - Orc.Weapon.Damage)<0){
+					player.Health -= (player.Armour.TotalArmor - Orc.Weapon.Damage) * -1;
+				}
+				Orc.Weapon.Durability -= 1;
+				document.getElementById("OrcDamage").innerHTML=`${Orc.Weapon.Damage}`
+				if(player.Health <= 0){
+					OrcDamage.innerHTML = ''
+					GameOver();
+					
+				}
+				if(Orc.Weapon.Durability <= 0){
+					Orc.Weapon.Damage = 0;
+					document.getElementById("OrcDamage2").innerHTML="The orc's weapon broke, now is your chance to kill it!"
+					setTimeout(cleartxt, 3000);
+					clearInterval(attacktimer);
+				}
+					
+				setTimeout(clearorctxt, 2000)
+			}
+
+			function clearorctxt(){
+				OrcDamage.innerHTML='';
+			}
+
+			function cleartxt(){
+				OrcDamage2.innerHTML = '';
+			}
+
+			function GameOver() {
+				if (confirm('YOU DIED Press ok to restart.')) {
+      				window.location = 'file:///C:/_code/TerraDog/oceanhim.github.io/weeGame2.html'
+    			}
+				
+			}
+			//This is repetitive, it will be better if you fix it. 
+			let updateinterval = setInterval(Stats, 1000);
+			function updateHealthstat() {
+				return [`Your Health: ${player.Health}`];
+			}
+			
+			function updateGoldstat() {
+				return [`Your Gold: ${player.Gold}`];
+			}
+			
+			function updateScorestat() {
+				return [`Your Score: ${player.Score}`];
+			}
+			
+			function updateArmorstat() {
+				return [`Your Armor: ${player.Armour.TotalArmor}`];
+			}
+
+			function updateOrcstat() {
+				return [`Orc Health: ${Orc.Health}`];
+			}
+			function Stats() {
+				document.getElementById("p1HealthStat").innerText=updateHealthstat();
+				document.getElementById("p1GoldStat").innerText=updateGoldstat();
+				document.getElementById("p1ScoreStat").innerText=updateScorestat();
+				document.getElementById("p1ArmorStat").innerText=updateArmorstat();
+				document.getElementById("OrcStat").innerText=updateOrcstat();
+			}
+
+			function StartScreen() {
+
+			}
+
+			function pausegame() {
+				clearInterval(attacktimer);
+				
+				document.getElementById("Pausedheader").innerHTML='PAUSED';
+				let pausedgamestatebtn = document.getElementById("pausebtn");
+					if (pausedgamestatebtn.style.display === "block") {
+						pausedgamestatebtn.style.display = "none";
+					}
+				
+					let gamestatebtn = document.getElementById("resumebtn");
+					if (gamestatebtn.style.display === "none") {
+						gamestatebtn.style.display = "block";
+					}
+
+				let weaponbtngone = document.getElementById("one0one");
+					if (weaponbtngone.style.display === "block") {
+						weaponbtngone.style.display = "none";
+					}
+			}
+
+			function resumegame() {
+				setInterval(OrcAttack, 5000)
+				document.getElementById("Pausedheader").innerHTML='';
+				let weaponbtngonesword = document.getElementById("one0one");
+					if (weaponbtngonesword.style.display === "none") {
+						weaponbtngonesword.style.display = "block";
+					}
+				let pausedgamestate = document.getElementById("pausebtn");
+					if (pausedgamestate.style.display === "none") {
+						pausedgamestate.style.display = "block";
+					}
+
+				let gamestatebtnpause = document.getElementById("resumebtn")
+				if(gamestatebtnpause.style.display === "block") {
+					gamestatebtnpause.style.display = "none";
+				}
+			}
+
+			/* I should add music and maybe add music to the tutorial as well
+			   I should complete my start menu so the player doesn't just enter the game and sees that they are losing health.
+			   And I need to add visuals so the player knows when an orc is attacking them so they can use their shield (Which I also need to make.)
+
+			*/
+		</script>
+			<li id="p1HealthStat" class="glow"></li>
+			<li id="p1GoldStat" class="glow"></li>
+			<li id="p1ScoreStat" class="glow"></li>
+			<li id="p1ArmorStat" class="glow"></li>
+			<li id="OrcStat" class="glow"></li>
+			<input style="display: block;" id="one0one" type="button" class="tooltip" value="UseYourWeapon" onclick="UseMyWeapon()">
+			<p id="HighScore"></p>
+			<p id="OrcDamage"></p>
+			<p id="OrcDamage2"></p>
+			<p id="deathscreen"></p>	
+			<p id="Score" class="txtstyle1"></p>
+			<p id="p1damage"></p>
+			<input style="display: block;" type="button" id="pausebtn" class="tooltip" value="PAUSE" onclick="pausegame()">
+			<input style="display: none;" type="button" id="resumebtn" class="tooltip" value="RESUME" onclick="resumegame()"> 
+			<h1 id="Pausedheader" class="glow"></h1>
+	</body>
+</html>

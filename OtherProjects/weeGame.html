@@ -20,10 +20,7 @@ function initWeapon(Name, minDmg, maxDmg, Cost, value){
         };
 }
 
-
-
 let player = {};
-player.FirstName ="Altavich";
 player.Health = 100;
 player.Level= 1;
 player.Gold = 0;
@@ -36,7 +33,7 @@ player.ActiveWeapon = player.Inventory[0];
 
 
 let Store={};
-Store.Inventory = [WoodenSword, TinSword, IronSword, DiamondSword, PlatinumSword];
+Store.Inventory = [TinSword, IronSword, DiamondSword, PlatinumSword];
 
 
 
@@ -75,7 +72,7 @@ function UseMySword () {
     //console.log (`the Orc's health is ${OrcHealth}`)
     if (OrcHealth <= 0) {
         player.Xp += 25;
-        player.Gold += 5
+        player.Gold += 30
         console.log("Oooh, collected 5 gold from the Orc!")
         EnoughXpToLevelUp();
         OrcHealth = player.Level * 100
@@ -91,10 +88,12 @@ function instore (item) {
 function OpenShop () {
     let ShopButtons = document.getElementById("ShopActions");
     if (ShopButtons.style.display === "none") {
-    ShopButtons.style.display = "block";
-  } else {
-    ShopButtons.style.display = "none";
-  }
+        ShopButtons.style.display = "block";
+    } else {
+        ShopButtons.style.display = "none";
+    }
+
+    learnAppend();
 }
 
 function canAfford(item){
@@ -106,7 +105,7 @@ function sellItem(item){
         console.log ("Thank you, have a good day!")
         player.Gold += item.SellAmount;
         Store.Inventory.push(item);
-        alert (`You got ${item.SellAmount} gold from selling your Platinum Sword`)
+        alert (`You got ${item.SellAmount} gold from selling your ${item.Name}`)
     }else {
         console.log ("Sorry, you don't have that.")
     }    
@@ -141,7 +140,7 @@ function ShowStats () {
 function DidPlayerDie () {
     if (player.Health <= 0) {
         if (confirm('You lost. Press ok to restart.')) {
-      window.location = '/'
+      window.location = 'file:///C:/_code/TerraDog/oceanhim.github.io/OtherProjects/weeGame.html'
     }
     }
 }
@@ -149,6 +148,36 @@ function DidPlayerDie () {
 function Reset () {
     player.Health -= player.Health;
     DidPlayerDie();
+}
+
+function learnAppend(){
+    let conta = document.getElementById("ItemsInShop");
+    conta.innerHTML = '';
+    Store.Inventory.forEach(element => {
+        let mydiv = document.createElement("div");
+        let myspan= document.createElement("span");
+        let mybutton= document.createElement("input");
+            mybutton.classList.add('tooltip');
+            mybutton.type='button';
+            mybutton.value = "Buy " + element.Name
+            mybutton.addEventListener("click", (e)=>{BuyItem(element);})
+            myspan.textContent = `Buy for ${element.Cost} Gold:`;
+            
+        mydiv.appendChild(myspan);
+        mydiv.appendChild(mybutton);
+        conta.appendChild(mydiv);      
+    });
+}
+
+function UserCreatesCharName () {
+    let Introduction;
+  let person = prompt("Your character name:");
+  if (person == null || person == "") {
+    Introduction = "User cancelled the prompt.";
+  } else {
+    Introduction = "Hello " + person + "! Battles are awaiting";
+  }
+  alert("Hello " + person + "! Battles are awaiting")
 }
 
 </script>
@@ -160,6 +189,7 @@ function Reset () {
                 position: relative;
                 display: inline-block;
                 font-size: medium;
+                font-style: italic;
             }
 
             .tooltip .tooltiptext {
@@ -206,14 +236,38 @@ function Reset () {
             .SnakeImg {
                 float: right;
                 display: block;
-                margin-left: auto;
-                margin-right: auto;
+            }
+
+            #p1 {
+                position: absolute;
+            }
+
+            #opponent {
+                position: absolute;
+            }
+
+            #container {
+                background-color: gray;
+                position: relative;
+                width: 1000px;
+                height: 1000px;
+                vertical-align: middle;
+            }
+
+            canvas {
+                border: 1px solid black;
+                background-color: gray;
+            }
+
+            #CombatDamage {
+                font-size: large;
+                color: blue;
             }
 
         </style>
     </head>
-    <body>
-         <table width="100%" height="100%" border="1">
+    <body onload="UserCreatesCharName()">
+         <table width="100%" height="100%">
             <tr>
                 <td valign="top" colspan="2">
                     <input type="button" class="tooltip" value="Show Stats" onclick="ShowStats()">
@@ -223,36 +277,21 @@ function Reset () {
                     <input type="button" class="tooltip" value="Reset" onclick="Reset()">
                     <h1>
                     <div id="ShopActions" style="display: none;">
-                        <div class="tooltip1">
-                                <span class="tooltiptext" style="font-size: large;">30 Gold:</span>
-                            <input type="button" class="tooltip" value="Buy Tin Sword" onclick="BuyItem(TinSword)"> 
-                        </div>
+                        <div id="ItemsInShop"></div>
                         <div>        
-                                <span class="tooltiptext2" style="font-size: large;">50 Gold:</span>
-                            <input type="button" class="tooltip" value="Buy Iron Sword" onclick="BuyItem(IronSword)"> 
-                        </div>        
-                        <div>        
-                                <span class="tooltiptext3" style="font-size: large;">100 Gold:</span>
-                            <input type="button" class="tooltip" value="Buy Diamond Sword" onclick="BuyItem(DiamondSword)"> 
-                        </div>        
-                        <div>
-                                <span class="tooltiptext4" style="font-size: large;">200 Gold:</span>
-                            <input type="button" class="tooltip" value="Buy Platinum Sword" onclick="BuyItem(PlatinumSword)"> 
-                        </div>
-                        <div>        
-                                <span class="tooltiptext5" style="font-size: large;">20 Gold:</span>
+                            <span class="tooltiptext5" style="font-size: 33px;">Sell for 20 Gold:</span>
                             <input type="button" class="tooltip" value="Sell Tin Sword" onclick="sellItem(TinSword)">
                         </div>        
                         <div>        
-                                <span class="tooltiptext6" style="font-size: large;">30 Gold:</span>
+                                <span class="tooltiptext6" style="font-size: 33px;">Sell for 30 Gold:</span>
                             <input type="button" class="tooltip" value="Sell Iron Sword" onclick="sellItem(IronSword)">
                         </div>     
                         <div>    
-                                <span class="tooltiptext7" style="font-size: large;">60 Gold:</span>
+                                <span class="tooltiptext7" style="font-size: 33px;">Sell for 60 Gold:</span>
                             <input type="button" class="tooltip" value="Sell Diamond Sword" onclick="sellItem(DiamondSword)">
                         </div>     
                         <div>    
-                                <span class="tooltiptext8" style="font-size: large;">135 Gold:</span>
+                                <span class="tooltiptext8" style="font-size: 33px;">Sell for 135 Gold:</span>
                             <input type="button" class="tooltip" value="Sell Platinum Sword" onclick="sellItem(PlatinumSword)">
                         </div>    
                     </div>
@@ -260,31 +299,31 @@ function Reset () {
                 </td>
             </tr>
             <tr>
-                <td>
-                    <div style="width: 300px; height: 300px; background-color: gray;">
-                        <img src="../WebsiteMaterial/images/peson.jpg" width="150px" height="150px" id="p1" />
-                        <img src="../WebsiteMaterial/images/orc.jpg" width="150px" height="150px" style="text-align: right;" id="opponent" />
+                <td align="center">
+                    <div id="CombatDamage"></div>  
+                    <div id="container">
+                        <img src="../WebsiteMaterial/images/peson.jpg" width="100px" height="100px" id="p1" />
+                        <img src="../WebsiteMaterial/images/orc.jpg" width="100px" height="100px" id="opponent" />
                     </div>
                 </td>
                 <td>
-                    
-                    <div id="CombatDamage"></div>                    
+                    <div id="CharName"></div>
+                    <div id="Stats"></div>                  
                 </td>
             </tr>
             <tr>
-                <td align="right" colspan="2">
+                <td align="absolute" colspan="2">
                         <div class="advertisementForDadsGame">
-                            <p>Create your own levels, beat challenges, and send suggestions to the developer!</p>    
+                            <p>Create your own levels, test and play them, beat challenges, and try to get to the highest level!</p>    
                             <a href="https://inspiring-mahavira-42a2b1.netlify.app/">
-                            <img class="SnakeImg" src="../WebsiteMaterial/images/SnakeImg.jpg" alt="Snake" width="250" height="300">
+                            <img class="SnakeImg" src="../WebsiteMaterial/images/SnakeImg.jpg" alt="Snake" width="400" height="300">
                             </a>
                         </div>                       
                 </td>
             </tr>
         </table>
-        <div id="Stats"></div>
         <div id="Store"></div>
         <div id="InventoryItems"></div>
-        
+        <div id="CharName"></div>
     </body>
 </html>
